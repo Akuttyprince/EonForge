@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Paralax Effect On GSAP</title>
-	<link rel="icon" href="img/icon.jpg" type="icon/x-icon">
+	<title>EON FORGE</title>
+	<link rel="icon" href="img/2.jpg" type="icon/x-icon">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;800&display=swap" rel="stylesheet">
@@ -107,7 +107,7 @@
 				</div>
 			</section>
 			<!-- div .people -->
-
+<div></div>
 			<section class="team">
 				<h2 class="section-title">our <span class="stroke">team</span>
 				  <span class="section-title__square"></span>
@@ -131,142 +131,316 @@
 			<!-- div .work -->
 			<section class="work">
 				<div class="content">
-					<h2 class="section-title">portfo<span class="stroke">lio</span>
-						<span class="section-title__square"></span>
-					</h2>
+				  <h2 class="section-title">portfo<span class="stroke">lio</span>
+					<span class="section-title__square"></span>
+				  </h2>
 				</div>
-		
+			
 				<div class="work__wrapp">
-					<div class="work__item" data-speed="-300">
-						<span class="work__item-num" data-speed="-1000">/001</span>
-						<div class="work__item-img">
-							<img src="img/3.jpg" alt="Project 1">
-						</div>
-						<div class="work__item-arrow">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-								<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-							</svg>
-						</div>
-						<div class="project-details">
-							<h3 class="project-title">Modern Web Application</h3>
-							<p class="project-description">A responsive web application built with React and Node.js. This project features user authentication, real-time data updates, and a sleek user interface designed for optimal user experience across all devices.</p>
-							<a href="#" class="project-link">View Demo</a>
-							<button class="close-btn" aria-label="Close Project Details">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-									<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-								</svg>
-							  </button>
-							  
-						</div>
+				  <!-- Project 1 -->
+				  <div class="work__item">
+					<span class="work__item-num">/001</span>
+					<div class="work__item-img">
+					  <img src="img/3.jpg" alt="Project 1">
 					</div>
 					
-					<div class="work__item" data-speed="-600">
-						<span class="work__item-num" data-speed="-500">/002</span>
-						<div class="work__item-img">
-							<img src="img/4.jpg" alt="Project 2">
-						</div>
-						<div class="work__item-arrow">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-								<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-							</svg>
-						</div>
-						<div class="project-details">
-							<h3 class="project-title">E-commerce Platform</h3>
-							<p class="project-description">A fully-featured e-commerce platform with product management, shopping cart functionality, payment processing, and order tracking. Built with a focus on performance and user experience.</p>
-							<a href="#" class="project-link">View Demo</a>
-							<button class="close-btn" aria-label="Close Project Details">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-									<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-								</svg>
-							  </button>
-							  
-						</div>
+					<!-- CSS-only toggle solution using hidden checkbox -->
+					<input type="checkbox" id="project1" class="work__item-checkbox">
+					<label for="project1" class="work__item-arrow">
+					  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+					  </svg>
+					</label>
+					
+					<div class="project-details">
+					  <h3 class="project-title">Modern Web Application</h3>
+					  <p class="project-description">A responsive web application built with React and Node.js. This project features user authentication, real-time data updates, and a sleek user interface designed for optimal user experience across all devices.</p>
+					  <a href="#" class="project-link">View Demo</a>
+					  <label for="project1" class="close-label">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+						</svg>
+					  </label>
+					</div>
+				  </div>
+				  
+				  <!-- Project 2 -->
+				  <div class="work__item">
+					<span class="work__item-num">/002</span>
+					<div class="work__item-img">
+					  <img src="img/4.jpg" alt="Project 2">
 					</div>
 					
-					<div class="work__item" data-speed="-700">
-						<span class="work__item-num" data-speed="-700">/003</span>
-						<div class="work__item-img">
-							<img src="img/5.jpg" alt="Project 3">
-						</div>
-						<div class="work__item-arrow">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-								<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-							</svg>
-						</div>
-						<div class="project-details">
-							<h3 class="project-title">Portfolio Website</h3>
-							<p class="project-description">A creative portfolio website showcasing professional work with smooth animations and interactive elements. Features a custom-built content management system for easy updates.</p>
-							<a href="#" class="project-link">View Demo</a>
-							<button class="close-btn" aria-label="Close Project Details">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-									<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-								</svg>
-							  </button>
-							  
-						</div>
+					<input type="checkbox" id="project2" class="work__item-checkbox">
+					<label for="project2" class="work__item-arrow">
+					  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+					  </svg>
+					</label>
+					
+					<div class="project-details">
+					  <h3 class="project-title">E-commerce Platform</h3>
+					  <p class="project-description">A fully-featured e-commerce platform with product management, shopping cart functionality, payment processing, and order tracking. Built with a focus on performance and user experience.</p>
+					  <a href="#" class="project-link">View Demo</a>
+					  <label for="project2" class="close-label">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+						</svg>
+					  </label>
+					</div>
+				  </div>
+				  
+				  <!-- Project 3 -->
+				  <div class="work__item">
+					<span class="work__item-num">/003</span>
+					<div class="work__item-img">
+					  <img src="img/5.jpg" alt="Project 3">
 					</div>
 					
-					<div class="work__item" data-speed="-400">
-						<span class="work__item-num" data-speed="-200">/004</span>
-						<div class="work__item-img">
-							<img src="img/6.jpg" alt="Project 4">
-						</div>
-						<div class="work__item-arrow">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-								<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-							</svg>
-						</div>
-						<div class="project-details">
-							<h3 class="project-title">Mobile Application</h3>
-							<p class="project-description">A cross-platform mobile application developed with React Native. This app includes features like push notifications, offline functionality, and seamless data synchronization.</p>
-							<a href="#" class="project-link">View Demo</a>
-							<div class="close-btn">
-								
-							</div>
-						</div>
+					<input type="checkbox" id="project3" class="work__item-checkbox">
+					<label for="project3" class="work__item-arrow">
+					  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+					  </svg>
+					</label>
+					
+					<div class="project-details">
+					  <h3 class="project-title">Portfolio Website</h3>
+					  <p class="project-description">A creative portfolio website showcasing professional work with smooth animations and interactive elements. Features a custom-built content management system for easy updates.</p>
+					  <a href="#" class="project-link">View Demo</a>
+					  <label for="project3" class="close-label">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+						</svg>
+					  </label>
 					</div>
+				  </div>
+				  
+				  <!-- Project 4 -->
+				  <div class="work__item">
+					<span class="work__item-num">/004</span>
+					<div class="work__item-img">
+					  <img src="img/6.jpg" alt="Project 4">
+					</div>
+					
+					<input type="checkbox" id="project4" class="work__item-checkbox">
+					<label for="project4" class="work__item-arrow">
+					  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+					  </svg>
+					</label>
+					
+					<div class="project-details">
+					  <h3 class="project-title">Mobile Application</h3>
+					  <p class="project-description">A cross-platform mobile application developed with React Native. This app includes features like push notifications, offline functionality, and seamless data synchronization.</p>
+					  <a href="#" class="project-link">View Demo</a>
+					  <label for="project4" class="close-label">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+						  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+						</svg>
+					  </label>
+					</div>
+				  </div>
 				</div>
-			</section>
+			  </section>
 
-			<!-- div .serv -->
-			<section class="serv">
+			  <section>
 				<div class="content">
-					<h2 class="section-title">servic<span class="stroke">es</span>
-						<span class="section-title__square"></span>
+					<h2 class="section-title">portfo<span class="stroke">lio</span>
+					  <span class="section-title__square"></span>
 					</h2>
+				  </div>
+				<div class="timeline-container">
+					<div class="timeline-line"></div>
+					
+					<div id="job1" class="timeline-item">
+						<div class="timeline-dot">
+							<img src="/img/2.jpg" alt="Company logo" class="timeline-logo">
+						</div>
+						<div class="timeline-date">January 2023 - Present</div>
+						<div class="timeline-content">
+							<h2 class="job-title">React.js Developer</h2>
+							<h3 class="company">Gryffindors</h3>
+							<ul class="responsibilities">
+								<li>Developing and maintaining web applications using React.js and other related technologies.</li>
+								<li>Collaborating with cross-functional teams including designers, product managers, and other developers.</li>
+								<li>Implementing responsive design and ensuring cross-browser compatibility.</li>
+								<li>Participating in code reviews and providing constructive feedback to other developers.</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div id="job2" class="timeline-item">
+						<div class="timeline-dot">
+							<img src="/img/2.jpg" alt="Company logo" class="timeline-logo">
+						</div>
+						<div class="timeline-date">September 2022 - September 2023</div>
+						<div class="timeline-content">
+							<h2 class="job-title">Intern</h2>
+							<h3 class="company">Limra United Technologies</h3>
+							<ul class="responsibilities">
+								<li>Developing and maintaining web applications along with testing using Cypress.</li>
+								<li>Collaborating with cross-functional teams including designers, product managers, and developers.</li>
+								<li>Learning and implementing best practices in frontend development.</li>
+							</ul>
+						</div>
+					</div>
+			
+					<div id="job3" class="timeline-item">
+						<div class="timeline-dot">
+							<img src="/img/2.jpg" alt="Company logo" class="timeline-logo">
+						</div>
+						<div class="timeline-date">January 2022 - August 2022</div>
+						<div class="timeline-content">
+							<h2 class="job-title">Frontend Developer</h2>
+							<h3 class="company">Technowave</h3>
+							<ul class="responsibilities">
+								<li>Building responsive user interface components using React.js.</li>
+								<li>Optimizing components for maximum performance across devices.</li>
+								<li>Creating and maintaining technical documentation.</li>
+								<li>Implementing state management using Redux and Context API.</li>
+							</ul>
+						</div>
+					</div>
+			
+					<div id="job4" class="timeline-item">
+						<div class="timeline-dot">
+							<img src="/img/2.jpg" alt="Company logo" class="timeline-logo">
+						</div>
+						<div class="timeline-date">June 2021 - December 2021</div>
+						<div class="timeline-content">
+							<h2 class="job-title">UI Developer</h2>
+							<h3 class="company">Digital Nexus</h3>
+							<ul class="responsibilities">
+								<li>Implementing visual elements that users see and interact with.</li>
+								<li>Creating tools that improve site interaction regardless of browser.</li>
+								<li>Maintaining brand consistency throughout design.</li>
+								<li>Working with the UX team to improve usability.</li>
+							</ul>
+						</div>
+					</div>
+			
+					<div id="job5" class="timeline-item">
+						<div class="timeline-dot">
+							<img src="/img/2.jpg" alt="Company logo" class="timeline-logo">
+						</div>
+						<div class="timeline-date">January 2021 - May 2021</div>
+						<div class="timeline-content">
+							<h2 class="job-title">Junior Developer</h2>
+							<h3 class="company">TechStart Solutions</h3>
+							<ul class="responsibilities">
+								<li>Assisting senior developers with coding and troubleshooting.</li>
+								<li>Implementing simple features under supervision.</li>
+								<li>Learning company development standards and processes.</li>
+								<li>Participating in team meetings and contributing ideas.</li>
+							</ul>
+						</div>
+					</div>
+					
+				
+				</div>
+			  </section>
+			<!-- div .serv -->
+			<section class="serv"> 				
+				<div class="content"> 					
+				  <h2 class="section-title">servic<span class="stroke">es</span> 						
+					<span class="section-title__square"></span> 					
+				  </h2>  					
+				  <div class="serv__list"> 						
+					<a href="graphic-design.html" class="serv__item-link">
+					  <div class="serv__item"> 							
+						<span class="serv__item-arrow" data-speed="500"> 								
+						  <img src="img/arrow.svg" alt=""> 							
+						</span> 							
+						<div class="serv__item-txt"> 								
+						  <span class="serv__item-text">/Graphic Design</span> 							
+						</div> 						
+					  </div>
+					</a> 						
+					<a href="ux-ui-design.html" class="serv__item-link">
+					  <div class="serv__item"> 							
+						<span class="serv__item-arrow" data-speed="400"> 								
+						  <img src="img/arrow.svg" alt=""> 							
+						</span> 							
+						<div class="serv__item-txt"> 								
+						  <span class="serv__item-text">/UX/UI Design</span> 							
+						</div> 						
+					  </div>
+					</a> 						
+					<a href="web-design.html" class="serv__item-link">
+					  <div class="serv__item"> 							
+						<span class="serv__item-arrow" data-speed="800"> 								
+						  <img src="img/arrow.svg" alt=""> 							
+						</span> 							
+						<div class="serv__item-txt"> 								
+						  <span class="serv__item-text">/Web Design</span> 							
+						</div> 						
+					  </div>
+					</a> 						
+					<a href="brand-design.html" class="serv__item-link">
+					  <div class="serv__item"> 							
+						<span class="serv__item-arrow" data-speed="600"> 								
+						  <img src="img/arrow.svg" alt=""> 							
+						</span> 							
+						<div class="serv__item-txt"> 								
+						  <span class="serv__item-text">/Brend Design</span> 							
+						</div> 						
+					  </div>
+					</a> 						
+				  </div> 				
+				</div> 			
+			  </section>
+			  
 
-					<div class="serv__list">
-						<div class="serv__item">
-							<span class="serv__item-arrow" data-speed="500">
-								<img src="img/arrow.svg" alt="">
-							</span>
-							<div class="serv__item-txt">
-								<span class="serv__item-text">/Graphic Design</span>
+			<section id="contact">
+				<div class="contact-wrapper">
+					<div class="contact-header">
+						<h2 class="section-title">contact<span class="stroke">us</span> 						
+							<span class="section-title__square"></span> 					
+						  </h2> 
+						
+					
+					<div class="contact-content">
+						<div class="contact-info">
+							
+							
+							<div class="info-item">
+								<h3>Email Us</h3>
+								<p>hello@yourdomain.com<br>support@yourdomain.com</p>
+							</div>
+							
+							<div class="info-item">
+								<h3>Call Us</h3>
+								<p>+1 (212) 555-1234<br>Mon-Fri: 9AM-6PM</p>
 							</div>
 						</div>
-						<div class="serv__item">
-							<span class="serv__item-arrow" data-speed="400">
-								<img src="img/arrow.svg" alt="">
-							</span>
-							<div class="serv__item-txt">
-								<span class="serv__item-text">/UX/UI Design</span>
-							</div>
-						</div>
-						<div class="serv__item">
-							<span class="serv__item-arrow" data-speed="800">
-								<img src="img/arrow.svg" alt="">
-							</span>
-							<div class="serv__item-txt">
-								<span class="serv__item-text">/Web Design</span>
-							</div>
-						</div>
-						<div class="serv__item">
-							<span class="serv__item-arrow" data-speed="600">
-								<img src="img/arrow.svg" alt="">
-							</span>
-							<div class="serv__item-txt">
-								<span class="serv__item-text">/Brend Design</span>
-							</div>
+						
+						<div class="contact-form">
+							<form>
+								<div class="form-row">
+									<div class="form-group">
+										<label for="name">Name</label>
+										<input type="text" id="name" required>
+									</div>
+									
+									<div class="form-group">
+										<label for="email">Email</label>
+										<input type="email" id="email" required>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="subject">Subject</label>
+									<input type="text" id="subject" required>
+								</div>
+								
+								<div class="form-group">
+									<label for="message">Message</label>
+									<textarea id="message" required></textarea>
+								</div>
+								
+								<button type="submit">SEND MESSAGE</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -276,17 +450,17 @@
 		<!-- div .footer -->
 		<footer class="footer">
 			<div class="footer__div">
-				<span data-speed="-300">a</span>
-				<span data-speed="100">p</span>
-				<span data-speed="300">p</span>
-				<span data-speed="-300">r</span>
-				<span data-speed="350">o</span>
-				<span data-speed="200">v</span>
-				<span data-speed="-310">e</span>
-				<span data-speed="200">c</span>
-				<span data-speed="-340">o</span>
-				<span data-speed="-100">d</span>
-				<span data-speed="300">e</span>
+				<span data-speed="-300"></span>
+				<span data-speed="100">E</span>
+				<span data-speed="300">O</span>
+				<span data-speed="-300">N</span>
+				<span data-speed="350"></span>
+				<span data-speed="200">F</span>
+				<span data-speed="-310">O</span>
+				<span data-speed="200">R</span>
+				<span data-speed="-340">G</span>
+				<span data-speed="-100">E</span>
+				<span data-speed="300"></span>
 			</div>
 		</footer>
 	</div>

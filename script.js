@@ -377,56 +377,82 @@ teamMembers.forEach((member, index) => {
     startSlideInterval();
   }
 
-
-     // Initialize GSAP parallax (your existing code - improved)
+// Service navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Register ScrollTrigger plugin
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Portfolio parallax function
-    function portfolio() {
-        gsap.from('.work__item, .work__item-num', {
-            y: (i, el) => (1 - parseFloat(el.getAttribute('data-speed'))),
-            scrollTrigger: {
-                trigger: '.work',
-                start: 'top bottom',
-                scrub: 1.9
-            }
-        });
-        
-        gsap.from('.work__item-img img', {
-            scale: 1.6,
-            scrollTrigger: {
-                trigger: '.work__wrapp',
-                start: 'top bottom',
-                scrub: 1.9
-            }
-        });
-    }
-    
-    // Initialize parallax
-    portfolio();
-    
-    // Add click events for project details
-    const arrows = document.querySelectorAll('.work__item-arrow');
-    const workItems = document.querySelectorAll('.work__item');
+  // Map service items to their corresponding page URLs
+  const servicePageMap = {
+    '/Graphic Design': 'graphic-design.html',
+    '/UX/UI Design': 'ux-ui-design.html',
+    '/Web Design': 'web-design.html',
+    '/Brend Design': 'brand-design.html'
+  };
 
-    arrows.forEach((arrow, index) => {
-        arrow.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const details = workItems[index].querySelector('.project-details');
-            if (details) {
-                details.classList.add('active');
-                
-                // Add close button event inside the details
-                const closeBtn = details.querySelector('.close-btn');
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        details.classList.remove('active');
-                    });
-                }
-            }
-        });
+  // Get all service items
+  const serviceItems = document.querySelectorAll('.serv__item');
+
+  // Add click event listeners to each service item
+  serviceItems.forEach(item => {
+    // Get the service text to determine which page to navigate to
+    const serviceText = item.querySelector('.serv__item-text').textContent;
+    
+    // Add click event to the entire item
+    item.addEventListener('click', function() {
+      navigateToServicePage(serviceText);
     });
+    
+    // Add click event to just the arrow (though it will do the same thing)
+    const arrow = item.querySelector('.serv__item-arrow');
+    if (arrow) {
+      arrow.addEventListener('click', function(e) {
+        // Prevent the event from triggering the parent's click event too
+        e.stopPropagation();
+        navigateToServicePage(serviceText);
+      });
+    }
+  });
+
+  // Function to handle navigation
+  function navigateToServicePage(serviceText) {
+    // Get the corresponding page URL
+    const pageUrl = servicePageMap[serviceText];
+    
+    if (pageUrl) {
+      // Navigate to the page
+      window.location.href = pageUrl;
+    } else {
+      console.error('No page mapping found for service:', serviceText);
+    }
+  }
+
+  // Add hover effects for better user experience
+  serviceItems.forEach(item => {
+    item.addEventListener('mouseenter', function() {
+      // Change the color to indicate interactivity
+      const textElement = item.querySelector('.serv__item-txt');
+      if (textElement) {
+        textElement.style.color = '#ffffff'; // Change to white on hover
+      }
+      
+      // Animate the arrow
+      const arrow = item.querySelector('.serv__item-arrow img');
+      if (arrow) {
+        arrow.style.transform = 'rotate(135deg)';
+        arrow.style.transition = 'transform 0.3s ease';
+      }
+    });
+
+    item.addEventListener('mouseleave', function() {
+      // Revert color back on mouse leave
+      const textElement = item.querySelector('.serv__item-txt');
+      if (textElement) {
+        textElement.style.color = '#4b4b4b'; // Change back to original color
+      }
+      
+      // Revert arrow animation
+      const arrow = item.querySelector('.serv__item-arrow img');
+      if (arrow) {
+        arrow.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
 });
