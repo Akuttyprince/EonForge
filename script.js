@@ -53,7 +53,7 @@ const teamMembers = [
       role: "Chief Executive Officer",
       description: "With over 15 years of industry experience, Sarah leads our team with vision and strategic direction.",
       imageUrl: "img/1.jpg", 
-      profileUrl: "script.js",
+      profileUrl: "thej.html",
       linkedin: "https://linkedin.com/in/sarah-johnson-ceo",
       github: "https://github.com/sjohnson-tech",
       email: "sarah.johnson@company.com"
@@ -456,3 +456,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+

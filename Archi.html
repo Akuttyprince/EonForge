@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Memories Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+      
+        
+      :root {
+    --sepia: #000000;           /* Changed to card-bg */
+    --dark-sepia: #0a0a0a;      /* Changed to second-color */
+    --light-sepia: #ffffff;     /* Kept as is (matches pr-color) */
+    --brown: rgba(7, 6, 6, 0.3);  /* Changed to glow-strong */
+    --black: #000000;           /* Changed to text-color */
+}
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+	font-family: 'Syne', sans-serif;
+           
+            background-color: var(--sepia);
+            color: var(--brown);
+            overflow-x: hidden;
+        }
+        
+        .page {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        /* Intro Page */
+        .intro-page {
+            background-color: var(--brown);
+            color: var(--light-sepia);
+            text-align: center;
+        }
+        
+        .intro-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .intro-subtitle {
+            font-family: 'Syne', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .intro-button {
+            background-color: var(--light-sepia);
+            color: var(--brown);
+            border: none;
+            padding: 1rem 2rem;
+            font-family: 'Syne', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: rotate(-2deg);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+        }
+        
+        .intro-button:hover {
+            transform: rotate(0deg);
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+        }
+        
+        /* Gallery - MODIFIED HEIGHT HERE */
+        .gallery-container {
+            min-height: 300vh; /* Reduced from 600vh to 300vh */
+            width: 100%;
+            position: relative;
+            background: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a39171' fill-opacity='0.15'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .decade-title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Syne', serif;
+            font-size: 5rem;
+            color: rgba(90, 57, 33, 0.1);
+            font-weight: bold;
+            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        
+        .random-decoration {
+            position: absolute;
+            opacity: 0.15;
+            z-index: 1;
+        }
+        /*
+        .postmark {
+            position: absolute;
+            width: 30%;
+            height: 30%;
+            background-image: url("b.png");
+            opacity: 0.5;
+        }
+        */
+        .memory-item {
+            position: absolute;
+            width: 300px;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+        
+        .memory-frame {
+            background-color: var(--light-sepia);
+            padding: 15px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+            transform: rotate(var(--rotation));
+            position: relative;
+        }
+        
+        .memory-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.02));
+            pointer-events: none;
+        }
+        
+        .special-frame {
+            background-color: #2d2d2b;
+            border: 1px solid var(--dark-sepia);
+            padding: 12px;
+        }
+        
+        .special-frame::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 1px dashed var(--dark-sepia);
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        .memory-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            filter: sepia(0.3);
+            display: block;
+        }
+        
+        .memory-text {
+            font-family: 'Syne', cursive;
+            text-align: center;
+            padding: 10px 5px;
+            font-size: 0.9rem;
+            color: var(--black);
+            background-color: var(--light-sepia);
+            border-top: 1px solid var(--dark-sepia);
+            position: relative;
+            margin-top: 5px;
+        }
+        
+        .memory-date {
+            position: absolute;
+            bottom: -20px;
+            right: 10px;
+            font-size: 0.8rem;
+            transform: rotate(-2deg);
+            opacity: 0.7;
+        }
+        
+        .memory-tape {
+            position: absolute;
+            width: 80px;
+            height: 30px;
+            background-color: rgba(255,255,255,0.6);
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(var(--tape-rotation));
+            opacity: 0.7;
+        }
+        
+        /* End Page */
+        .end-page {
+            background-color: var(--brown);
+            color: var(--light-sepia);
+            text-align: center;
+        }
+        
+        .end-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .end-text {
+            font-family: 'Syne', cursive;
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        /* Quote section */
+        .quote-section {
+            min-height: 50vh;
+            background-color: var(--light-sepia);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20v20H0V0zm10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14z' fill='%23a39171' fill-opacity='0.07' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .memory-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-family: 'Syne', cursive;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .memory-quote {
+            font-family: 'Syne', serif;
+            font-size: 2rem;
+            
+            max-width: 800px;
+            text-align: center;
+            line-height: 1.5;
+            color: var(--brown);
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .memory-quote::before,
+        .memory-quote::after {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            opacity: 0.2;
+        }
+        
+        .memory-quote::before {
+            top: 0;
+            left: 0;
+        }
+        
+        .memory-quote::after {
+            content: '"';
+            bottom: 0;
+            right: 0;
+        }
+        
+        .memory-quote cite {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            opacity: 0.8;
+            font-style: normal;
+        }
+        
+        .restart-button {
+            background-color: var(--light-sepia);
+            color: var(--brown);
+            border: none;
+            padding: 1rem 2rem;
+            font-family: 'Syne', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: rotate(2deg);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+        }
+        
+        .restart-button:hover {
+            transform: rotate(0deg);
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+        }
+        
+        /* Old paper texture overlay */
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23a39171' fill-opacity='0.1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.5;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .intro-title {
+                font-size: 2.5rem;
+            }
+            
+            .memory-item {
+                width: 250px;
+            }
+            
+            .end-title {
+                font-size: 2rem;
+            }
+        }
+/* navbar styles with updated color palette */
+.navbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 25px 70px;
+	z-index: 100;
+	mix-blend-mode: difference;
+	transition: background-color 0.4s cubic-bezier(.9, 0, .1, 1);
+}
+  
+.navbar__container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+  
+.navbar__left, .navbar__right {
+	flex: 1;
+}
+  
+.navbar__center {
+	flex: 2;
+	text-align: center;
+}
+  
+.navbar__logo {
+	font-size: 24px;
+	color: #ffffff; /* Using --pr-color value */
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+  
+.navbar__right {
+	display: flex;
+	justify-content: flex-end;
+}
+  
+.navbar__hamburger {
+	position: relative;
+	width: 35px;
+	height: 30px;
+	cursor: pointer;
+	z-index: 101;
+}
+  
+.navbar__hamburger span {
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: #ffffff; /* Using --pr-color value */
+	transition: all 0.3s cubic-bezier(.9, 0, .1, 1);
+}
+  
+.navbar__hamburger span:first-child {
+	top: 0;
+}
+  
+.navbar__hamburger span:nth-child(2) {
+	top: 50%;
+	transform: translateY(-50%);
+}
+  
+.navbar__hamburger span:last-child {
+	bottom: 0;
+}
+  
+/* Hamburger animation for open state */
+.navbar__hamburger.active span:first-child {
+	top: 50%;
+	transform: translateY(-50%) rotate(45deg);
+}
+  
+.navbar__hamburger.active span:nth-child(2) {
+	opacity: 0;
+}
+  
+.navbar__hamburger.active span:last-child {
+	bottom: 50%;
+	transform: translateY(50%) rotate(-45deg);
+}
+  
+/* Add black background when menu is active */
+.navbar.menu-active {
+	background-color: #000000;
+	mix-blend-mode: normal; /* Switch off mix-blend-mode when menu is open */
+}
+  
+/* Menu styles */
+.navbar__menu {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.95); /* Slightly transparent black */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transform: translateX(100%);
+	transition: transform 0.6s cubic-bezier(.9, 0, .1, 1);
+	z-index: 99;
+	opacity: 0;
+	visibility: hidden;
+	overflow: hidden;
+}
+  
+.navbar__menu.active {
+	transform: translateX(0);
+	opacity: 1;
+	visibility: visible;
+}
+  
+.navbar__menu-list {
+	list-style: none;
+	text-align: center;
+	z-index: 2;
+	position: relative;
+}
+  
+.navbar__menu-item {
+	margin: 25px 0;
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.4s ease, transform 0.4s ease;
+	transition-delay: 0.1s;
+	cursor: pointer;
+}
+  
+.navbar__menu.active .navbar__menu-item {
+	opacity: 1;
+	transform: translateY(0);
+}
+  
+/* Stagger the animation delay for each menu item */
+.navbar__menu.active .navbar__menu-item:nth-child(1) { transition-delay: 0.1s; }
+.navbar__menu.active .navbar__menu-item:nth-child(2) { transition-delay: 0.2s; }
+.navbar__menu.active .navbar__menu-item:nth-child(3) { transition-delay: 0.3s; }
+.navbar__menu.active .navbar__menu-item:nth-child(4) { transition-delay: 0.4s; }
+.navbar__menu.active .navbar__menu-item:nth-child(5) { transition-delay: 0.5s; }
+  
+.navbar__menu-item a {
+	position: relative;
+	font-size: 55px;
+	color: #ffffff; /* Using --pr-color value */
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: color 0.3s ease;
+}
+  
+.navbar__menu-item a:hover {
+	color: transparent;
+	-webkit-text-stroke: 1px #ffffff; /* Using --pr-color value */
+}
+  
+.navbar__menu-item a::after {
+	content: "";
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	width: 0;
+	height: 2px;
+	background-color: #ffffff; /* Using --pr-color value */
+	transition: width 0.3s cubic-bezier(.9, 0, .1, 1);
+}
+  
+.navbar__menu-item a:hover::after {
+	width: 100%;
+}
+  
+/* Image hover effect */
+.navbar__menu-img-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	pointer-events: none;
+}
+  
+.navbar__menu-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+	opacity: 0;
+	transition: opacity 0.5s cubic-bezier(.9, 0, .1, 1);
+}
+  
+.navbar__menu-img::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for better text readability */
+}
+        
+    </style>
+</head>
+<body>
+  
+    <div class="texture-overlay"></div>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="navbar__container">
+          <div class="navbar__left">
+              <!-- Empty for balance or add content later -->
+          </div>
+          <div class="navbar__center">
+              <a href="#" class="navbar__logo">Memories</a>
+          </div>
+          <div class="navbar__right">
+              <div class="navbar__hamburger">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </div>
+          </div>
+      </div>
+      <div class="navbar__menu">
+          <ul class="navbar__menu-list">
+              <li class="navbar__menu-item">
+                  <a href="#" data-img="home.jpg">Home</a>
+              </li>
+              <li class="navbar__menu-item">
+                  <a href="#" data-img="gallery.jpg">Gallery</a>
+              </li>
+              <li class="navbar__menu-item">
+                  <a href="#" data-img="quotes.jpg">Quotes</a>
+              </li>
+              <li class="navbar__menu-item">
+                  <a href="#" data-img="about.jpg">About</a>
+              </li>
+              <li class="navbar__menu-item">
+                  <a href="#" data-img="contact.jpg">Contact</a>
+              </li>
+          </ul>
+          <div class="navbar__menu-img-container">
+              <!-- Background images will be loaded here via JavaScript -->
+              <div class="navbar__menu-img"></div>
+          </div>
+      </div>
+  </nav>
+    <!-- Intro Page -->
+    <section class="page intro-page" id="intro">
+        <h1 class="intro-title">Memories OF <BR>
+          EON FORGE</h1>
+        <p class="intro-subtitle">A journey through scattered moments of time</p>
+        <button class="intro-button" id="start-journey">Begin Journey</button>
+    </section>
+    
+    <!-- Gallery -->
+    <section class="gallery-container" id="gallery">
+        <div class="sticky-container">
+            <!-- Memory items will be added here by JavaScript -->
+        </div>
+    </section>
+    
+    <!-- End Page -->
+    <!-- Journey Quotes -->
+    <section class="quote-section">
+        <div class="quote-container">
+            <blockquote class="memory-quote">
+                "Memories are the key not to the past, but to the future."
+                <cite>— Corrie Ten Boom</cite>
+            </blockquote>
+        </div>
+    </section>
+    
+    <!-- End Page -->
+    <section class="page end-page" id="end">
+        <h2 class="end-title">Treasured Moments</h2>
+        <p class="end-text">Time passes, but memories remain frozen in these fragments of our past. They remind us of who we were and shape who we will become. These vintage snapshots carry the essence of simpler times, preserving emotions that transcend the decades.</p>
+        <div class="memory-stats">
+            <div class="stat-item">
+                <span class="stat-number">25</span>
+                <span class="stat-label">Memories</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2</span>
+                <span class="stat-label">Decades</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Emotions</span>
+            </div>
+        </div>
+        <button class="restart-button" id="restart-journey">Revisit Memories</button>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize GSAP
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Memory data
+            const memories = [
+                // Section 1
+                {
+                    position: { x: 30, y: 25 },
+                    rotation: -5,
+                    image: "i1.jpg",
+                    text: "Summer picnic by the lake",
+                    date: "July 1957",
+                    section: 1
+                },
+                {
+                    position: { x: 70, y: 35 },
+                    rotation: 3,
+                    image: "i2.jpg",
+                    text: "First day of school",
+                    date: "September 1962",
+                    section: 1
+                },
+                {
+                    position: { x: 25, y: 65 },
+                    rotation: -2,
+                    image: "i3.jpg",
+                    text: "Grandmother's kitchen on Sunday morning",
+                    date: "April 1959",
+                    section: 1
+                },
+                {
+                    position: { x: 75, y: 75 },
+                    rotation: 4,
+                    image: "i4.jpg",
+                    text: "The old oak tree behind the house",
+                    date: "August 1960",
+                    section: 1
+                },
+                {
+                    position: { x: 50, y: 50 },
+                    rotation: -3,
+                    image: "i6.jpg",
+                    text: "When I was little",
+                    date: "June 1965",
+                    section: 1
+                },
+                
+                // Section 2
+                {
+                    position: { x: 35, y: 30 },
+                    rotation: 2,
+                    image: "i5.jpg",
+                    text: "That magical first snowfall",
+                    date: "December 1963",
+                    section: 2
+                },
+                {
+                    position: { x: 65, y: 15 },
+                    rotation: -4,
+                    image: "i10.jpg",
+                    text: "Me and Grandpa",
+                    date: "May 1958",
+                    section: 2
+                },
+                {
+                    position: { x: 20, y: 45 },
+                    rotation: 5,
+                    image: "i9.jpg",
+                    text: "My first doll",
+                    date: "July 1961",
+                    section: 2
+                },
+                {
+                    position: { x: 80, y: 55 },
+                    rotation: -1,
+                    image: "i8.jpg",
+                    text: "Mother's garden",
+                    date: "June 1964",
+                    section: 2
+                },
+                {
+                    position: { x: 40, y: 70 },
+                    rotation: 3,
+                    image: "i7.jpg",
+                    text: "Our first home",
+                    date: "August 1959",
+                    section: 2
+                },
+                
+                // Section 3
+                {
+                    position: { x: 25, y: 20 },
+                    rotation: -3,
+                    image: "i11.jpg",
+                    text: "Doggy tango",
+                    date: "February 1962",
+                    section: 3
+                },
+                {
+                    position: { x: 75, y: 40 },
+                    rotation: 2,
+                    image: "i12.jpg",
+                    text: "Funny they",
+                    date: "June 1960",
+                    section: 3
+                },
+                {
+                    position: { x: 55, y: 65 },
+                    rotation: -4,
+                    image: "i13.jpg",
+                    text: "Promise??",
+                    date: "September 1958",
+                    section: 3
+                },
+                {
+                    position: { x: 15, y: 80 },
+                    rotation: 3,
+                    image: "i14.jpg",
+                    text: "We",
+                    date: "December 1956",
+                    section: 3
+                },
+                {
+                    position: { x: 60, y: 30 },
+                    rotation: -2,
+                    image: "i15.jpg",
+                    text: "Road trip",
+                    date: "July 1963",
+                    section: 3
+                },
+                
+                // Section 4
+                {
+                    position: { x: 40, y: 25 },
+                    rotation: 4,
+                    image: "i19.jpg",
+                    text: "Aunt Betsy's apple orchard",
+                    date: "October 1961",
+                    section: 4
+                },
+                {
+                    position: { x: 70, y: 70 },
+                    rotation: -3,
+                    image: "i16.jpg",
+                    text: "The old covered bridge",
+                    date: "May 1957",
+                    section: 4
+                },
+                {
+                    position: { x: 20, y: 55 },
+                    rotation: 2,
+                    image: "i20.jpg",
+                    text: "Grandpa's workshop in the barn",
+                    date: "March 1959",
+                    section: 4
+                },
+                {
+                    position: { x: 85, y: 35 },
+                    rotation: -5,
+                    image: "i18.jpg",
+                    text: "Mother's sewing machine",
+                    date: "January 1964",
+                    section: 4
+                },
+                {
+                    position: { x: 45, y: 80 },
+                    rotation: 3,
+                    image: "i17.jpg",
+                    text: "The old train station",
+                    date: "November 1958",
+                    section: 4
+                },
+                
+                // Section 5
+                {
+                    position: { x: 30, y: 40 },
+                    rotation: -2,
+                    image: "i18.jpg",
+                    text: "Summer day at the swimming hole",
+                    date: "August 1962",
+                    section: 5
+                    },
+                    {
+                    position: { x: 50, y: 35 },
+                    rotation: -4,
+                    image: "i19.jpg",
+                    text: "Uncle Frank's military homecoming",
+                    date: "June 1959",
+                    section: 5
+                },
+                {
+                    position: { x: 20, y: 55 },
+                    rotation: 2,
+                    image: "i20.jpg",
+                    text: "Grandpa's workshop in the barn",
+                    date: "March 1959",
+                    section: 5
+                },
+                {
+                    position: { x: 85, y: 35 },
+                    rotation: -5,
+                    image: "i21.jpg",
+                    text: "Mother's sewing machine",
+                    date: "January 1964",
+                    section: 5
+                }
+            ];
+            
+            const stickyContainer = document.querySelector('.sticky-container');
+            
+            // Add decade titles
+            const decades = ["2005", "2025"];
+            decades.forEach((decade, index) => {
+                const decadeTitle = document.createElement('div');
+                decadeTitle.className = 'decade-title';
+                decadeTitle.textContent = decade;
+                decadeTitle.style.opacity = 0;
+                stickyContainer.appendChild(decadeTitle);
+                
+                // Add random decorations
+                for (let i = 0; i < 5; i++) {
+                    const postmark = document.createElement('div');
+                    postmark.className = 'postmark random-decoration';
+                    postmark.style.left = `${Math.random() * 90}%`;
+                    postmark.style.top = `${Math.random() * 90}%`;
+                    postmark.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
+                    stickyContainer.appendChild(postmark);
+                }
+            });
+            
+            // Create memory items
+            memories.forEach((memory, index) => {
+                const memoryItem = document.createElement('div');
+                memoryItem.className = 'memory-item';
+                memoryItem.style.setProperty('--rotation', `${memory.rotation}deg`);
+                memoryItem.style.left = `${memory.position.x}%`;
+                memoryItem.style.top = `${memory.position.y}%`;
+                
+                // Create frame with random chance of special frame
+                const isSpecialFrame = Math.random() > 0.7;
+                const frameClass = isSpecialFrame ? 'memory-frame special-frame' : 'memory-frame';
+                
+                memoryItem.innerHTML = `
+                    <div class="${frameClass}">
+                        <div class="memory-tape" style="--tape-rotation: ${Math.random() * 10 - 5}deg"></div>
+                        <img src="${memory.image}" alt="${memory.text}" class="memory-image">
+                        <div class="memory-text">
+                            ${memory.text}
+                            <div class="memory-date">${memory.date}</div>
+                        </div>
+                    </div>
+                `;
+                
+                stickyContainer.appendChild(memoryItem);
+            });
+            
+            // Set up GSAP animations for scrolling through memories
+            const decadeTitles = document.querySelectorAll('.decade-title');
+            const memoryItems = document.querySelectorAll('.memory-item');
+            
+            // Animation for scrolling through sections
+            gsap.to(decadeTitles[0], {
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: "#gallery",
+                    start: "top top",
+                    end: "30% top",
+                    scrub: true
+                }
+            });
+            
+            gsap.to(decadeTitles[0], {
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: "#gallery",
+                    start: "40% top",
+                    end: "50% top",
+                    scrub: true
+                }
+            });
+            
+            gsap.to(decadeTitles[1], {
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: "#gallery",
+                    start: "50% top",
+                    end: "60% top",
+                    scrub: true
+                }
+            });
+            
+            gsap.to(decadeTitles[1], {
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: "#gallery",
+                    start: "90% top",
+                    end: "100% top",
+                    scrub: true
+                }
+            });
+            
+            // Animation for memory items by section
+            for (let i = 0; i < memoryItems.length; i++) {
+                const section = memories[i].section;
+                const start = (section - 1) * 20;
+                const end = start + 20;
+                
+                gsap.fromTo(memoryItems[i], 
+                    { opacity: 0, scale: 0.8 },
+                    { 
+                        opacity: 1, 
+                        scale: 1,
+                        scrollTrigger: {
+                            trigger: "#gallery",
+                            start: `${start}% top`,
+                            end: `${end}% top`,
+                            scrub: true
+                        }
+                    }
+                );
+                
+                if (section < 5) {
+                    gsap.to(memoryItems[i], {
+                        opacity: 0,
+                        scrollTrigger: {
+                            trigger: "#gallery",
+                            start: `${end + 5}% top`,
+                            end: `${end + 15}% top`,
+                            scrub: true
+                        }
+                    });
+                }
+            }
+            
+            // Button click handlers
+            document.getElementById('start-journey').addEventListener('click', function() {
+                document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            document.getElementById('restart-journey').addEventListener('click', function() {
+                document.getElementById('intro').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all necessary elements
+    const hamburger = document.querySelector('.navbar__hamburger');
+    const navbar = document.querySelector('.navbar');
+    const menu = document.querySelector('.navbar__menu');
+    const menuItems = document.querySelectorAll('.navbar__menu-item a');
+    const menuImage = document.querySelector('.navbar__menu-img');
+    
+    // Toggle menu on hamburger click
+    hamburger.addEventListener('click', function() {
+        // Toggle active classes
+        this.classList.toggle('active');
+        menu.classList.toggle('active');
+        navbar.classList.toggle('menu-active');
+    });
+    
+    // Handle menu item hover effect with background images
+    menuItems.forEach(item => {
+        // On mouse enter
+        item.addEventListener('mouseenter', function() {
+            // Get the image filename from data attribute
+            const imgSrc = this.getAttribute('data-img');
+            
+            // Set the background image
+            if (imgSrc) {
+                menuImage.style.backgroundImage = `url(images/${imgSrc})`;
+                menuImage.style.opacity = '1';
+            }
+        });
+        
+        // On mouse leave
+        item.addEventListener('mouseleave', function() {
+            // Hide the background image
+            menuImage.style.opacity = '0';
+        });
+        
+        // Handle click event for menu items
+        item.addEventListener('click', function(e) {
+            // Close the menu when item is clicked
+            hamburger.classList.remove('active');
+            menu.classList.remove('active');
+            navbar.classList.remove('menu-active');
+            
+            // If you want to prevent default navigation for SPA behavior
+            // e.preventDefault();
+            
+            // For single page application, you could add scroll to section code here
+            // Example:
+            // const targetId = this.getAttribute('href').substring(1);
+            // const targetSection = document.getElementById(targetId);
+            // if (targetSection) {
+            //     window.scrollTo({
+            //         top: targetSection.offsetTop,
+            //         behavior: 'smooth'
+            //     });
+            // }
+        });
+    });
+    
+    // Add scroll event for navbar background change
+    window.addEventListener('scroll', function() {
+        // Add background when scrolling down (if not in menu active state)
+        if (window.scrollY > 50 && !navbar.classList.contains('menu-active')) {
+            navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        } else if (!navbar.classList.contains('menu-active')) {
+            navbar.style.backgroundColor = 'transparent';
+        }
+    });
+});
+    </script>
+</body>
+</html>
