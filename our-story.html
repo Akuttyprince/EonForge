@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EON FORGE</title>
+	<link rel="icon" href="img/logo.png" type="icon/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Root variables */
+        :root {
+            --sepia: #000000;
+            --dark-sepia: #0a0a0a;
+            --light-sepia: #ffffff;
+            --brown: rgba(7, 6, 6, 0.3);
+            --black: #000000;
+            --accent-color: #e6c9a8;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Syne', sans-serif;
+            background-color: var(--sepia);
+            color: var(--light-sepia);
+            overflow-x: hidden;
+        }
+
+        /* navbar styles */
+        .storybook__navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 70px;
+            z-index: 100;
+            font-weight: 800;
+            mix-blend-mode: difference;
+            transition: background-color 0.4s cubic-bezier(.9, 0, .1, 1);
+        }
+
+        .storybook__navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .storybook__navbar-left, .storybook__navbar-right {
+            flex: 1;
+        }
+
+        .storybook__navbar-center {
+            flex: 2;
+            text-align: center;
+        }
+
+        .storybook__navbar-logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .storybook__navbar-right {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .storybook__hamburger {
+            position: relative;
+            width: 35px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .storybook__hamburger span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #ffffff;
+            transition: all 0.3s cubic-bezier(.9, 0, .1, 1);
+        }
+
+        .storybook__hamburger span:first-child {
+            top: 0;
+        }
+
+        .storybook__hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .storybook__hamburger span:last-child {
+            bottom: 0;
+        }
+
+        /* Hamburger animation for open state */
+        .storybook__hamburger.active span:first-child {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .storybook__hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .storybook__hamburger.active span:last-child {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        /* Add black background when menu is active */
+        .storybook__navbar.menu-active {
+            background-color: #000000;
+            mix-blend-mode: normal;
+        }
+
+        /* Menu styles */
+        .storybook__menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(.9, 0, .1, 1);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            overflow: hidden;
+        }
+
+        .storybook__menu.active {
+            transform: translateX(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .storybook__menu-list {
+            list-style: none;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .storybook__menu-item {
+            margin: 25px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition-delay: 0.1s;
+            cursor: pointer;
+        }
+
+        .storybook__menu.active .storybook__menu-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger the animation delay for each menu item */
+        .storybook__menu.active .storybook__menu-item:nth-child(1) { transition-delay: 0.1s; }
+        .storybook__menu.active .storybook__menu-item:nth-child(2) { transition-delay: 0.2s; }
+        .storybook__menu.active .storybook__menu-item:nth-child(3) { transition-delay: 0.3s; }
+        .storybook__menu.active .storybook__menu-item:nth-child(4) { transition-delay: 0.4s; }
+        .storybook__menu.active .storybook__menu-item:nth-child(5) { transition-delay: 0.5s; }
+
+        .storybook__menu-item a {
+            position: relative;
+            font-size: 55px;
+            font-weight: 800;
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .storybook__menu-item a:hover {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #ffffff;
+        }
+
+        .storybook__menu-item a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffffff;
+            transition: width 0.3s cubic-bezier(.9, 0, .1, 1);
+        }
+
+        .storybook__menu-item a:hover::after {
+            width: 100%;
+        }
+
+        /* Image hover effect */
+        .storybook__menu-img-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .storybook__menu-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s cubic-bezier(.9, 0, .1, 1);
+        }
+
+        .storybook__menu-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Storybook specific styles */
+        .storybook__hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .storybook__hero-title {
+            font-size: 90px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            color: var(--light-sepia);
+        }
+
+        .storybook__hero-subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--light-sepia);
+            opacity: 0.8;
+        }
+
+        .storybook__scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--light-sepia);
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .storybook__scroll-indicator:hover {
+            opacity: 1;
+        }
+
+        .storybook__scroll-text {
+            margin-bottom: 10px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .storybook__scroll-line {
+            width: 1px;
+            height: 60px;
+            background-color: var(--light-sepia);
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% {
+                height: 0;
+                opacity: 0;
+            }
+            50% {
+                height: 60px;
+                opacity: 1;
+            }
+            100% {
+                height: 0;
+                opacity: 0;
+                transform: translateY(60px);
+            }
+        }
+
+        /* Chapters style */
+        .storybook__chapter {
+            min-height: 100vh;
+            padding: 120px 70px 70px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .storybook__chapter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .storybook__chapter-number {
+            font-size: 180px;
+            font-weight: 800;
+            position: absolute;
+            top: 0;
+            left: -40px;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            z-index: 0;
+            line-height: 0.8;
+        }
+
+        .storybook__chapter-content {
+            display: flex;
+            position: relative;
+            z-index: 1;
+        }
+
+        .storybook__chapter-left {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .storybook__chapter-right {
+            flex: 1;
+            position: relative;
+        }
+
+        .storybook__chapter-title {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .storybook__chapter-subtitle {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-color);
+        }
+
+        .storybook__chapter-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .storybook__chapter-notes {
+            font-family: 'Caveat', cursive;
+            font-size: 22px;
+            color: var(--accent-color);
+            transform: rotate(-2deg);
+            margin: 40px 0;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .storybook__chapter-notes::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            width: 40px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            transform: rotate(5deg);
+            z-index: -1;
+        }
+
+        .storybook__chapter-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transform: rotate(2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .storybook__chapter-image:hover {
+            transform: rotate(0) scale(1.02);
+        }
+
+        .storybook__chapter-doodle {
+            position: absolute;
+            bottom: -50px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            z-index: 2;
+            opacity: 0.4;
+            transform: rotate(-10deg);
+        }
+
+        /* Enhanced Media queries */
+        @media (max-width: 1200px) {
+            .storybook__chapter-container {
+                max-width: 90%;
+            }
+            
+            .storybook__chapter-title {
+                font-size: 56px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .storybook__chapter-content {
+                flex-direction: column;
+            }
+            
+            .storybook__chapter-left {
+                padding-right: 0;
+                margin-bottom: 50px;
+            }
+            
+            .storybook__chapter-number {
+                font-size: 140px;
+                left: -20px;
+                opacity: 0.15;
+            }
+            
+            .storybook__chapter-title {
+                font-size: 48px;
+            }
+            
+            .storybook__hero-title {
+                font-size: 80px;
+            }
+            
+            .storybook__chapter-image {
+                transform: rotate(0);
+                max-height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .storybook__navbar {
+                padding: 20px 30px;
+            }
+            
+            .storybook__navbar-logo {
+                font-size: 20px;
+            }
+            
+            .storybook__hero-title {
+                font-size: 60px;
+                padding: 0 20px;
+            }
+            
+            .storybook__hero-subtitle {
+                padding: 0 30px;
+                font-size: 18px;
+            }
+            
+            .storybook__chapter {
+                padding: 100px 20px 50px;
+            }
+            
+            .storybook__chapter-number {
+                font-size: 100px;
+                left: -10px;
+                top: -30px;
+            }
+            
+            .storybook__chapter-title {
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+            
+            .storybook__chapter-subtitle {
+                font-size: 16px;
+            }
+            
+            .storybook__chapter-text {
+                font-size: 16px;
+            }
+            
+            .storybook__chapter-notes {
+                font-size: 18px;
+                margin: 20px 0;
+            }
+            
+            .storybook__menu-item a {
+                font-size: 36px;
+            }
+            
+            .storybook__chapter-image {
+                height: 300px;
+            }
+            
+            .storybook__chapter-doodle {
+                width: 100px;
+                height: 100px;
+                bottom: -30px;
+                right: -10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .storybook__hero-title {
+                font-size: 42px;
+            }
+            
+            .storybook__hero-subtitle {
+                font-size: 16px;
+                max-width: 90%;
+            }
+            
+            .storybook__navbar-logo {
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+            
+            .storybook__chapter-number {
+                font-size: 80px;
+                left: 0;
+                opacity: 0.1;
+            }
+            
+            .storybook__chapter-title {
+                font-size: 32px;
+            }
+            
+            .storybook__menu-item a {
+                font-size: 28px;
+            }
+            
+            .storybook__chapter-image {
+                height: 250px;
+            }
+            
+            .storybook__hamburger {
+                width: 30px;
+                height: 25px;
+            }
+        }
+
+        /* Progress indicator */
+        .storybook__progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 999;
+        }
+
+        .storybook__progress-bar {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Page transitions */
+        .storybook__transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #000;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(.9, 0, .1, 1);
+        }
+
+        .storybook__transition.active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress indicator -->
+    <div class="storybook__progress">
+        <div class="storybook__progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="storybook__navbar" id="navbar">
+        <div class="storybook__navbar-container">
+            <div class="storybook__navbar-left"></div>
+            <div class="storybook__navbar-center">
+                <a href="#" class="storybook__navbar-logo">eon forge</a>
+            </div>
+            <div class="storybook__navbar-right">
+                <div class="storybook__hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu -->
+    <div class="storybook__menu" id="menu">
+        <ul class="storybook__menu-list">
+            <li class="storybook__menu-item" data-img="ideation">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="storybook__menu-item" data-img="planning">
+                <a href="#planning">Planning</a>
+            </li>
+            <li class="storybook__menu-item" data-img="development">
+                <a href="#development">Development</a>
+            </li>
+            <li class="storybook__menu-item" data-img="challenges">
+                <a href="#challenges">Challenges</a>
+            </li>
+            <li class="storybook__menu-item" data-img="outcomes">
+                <a href="#outcomes">Outcomes</a>
+            </li>
+        </ul>
+        <div class="storybook__menu-img-container">
+            <div class="storybook__menu-img" data-img="ideation" style="background-image: url('img/1.jpg');"></div>
+            <div class="storybook__menu-img" data-img="planning" style="background-image: url('/api/placeholder/800/600');"></div>
+            <div class="storybook__menu-img" data-img="development" style="background-image: url('/api/placeholder/800/600');"></div>
+            <div class="storybook__menu-img" data-img="challenges" style="background-image: url('/api/placeholder/800/600');"></div>
+            <div class="storybook__menu-img" data-img="outcomes" style="background-image: url('/api/placeholder/800/600');"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="storybook__hero">
+        <h1 class="storybook__hero-title">Project Timeline<br>Storybook</h1>
+        <p class="storybook__hero-subtitle">Journey through the development of our project from initial concept to final outcome.</p>
+        <div class="storybook__scroll-indicator">
+            <span class="storybook__scroll-text">Scroll to begin</span>
+            <div class="storybook__scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Chapter 1: Ideation -->
+    <section class="storybook__chapter" id="ideation">
+        <div class="storybook__chapter-container">
+            <div class="storybook__chapter-number">01</div>
+            <div class="storybook__chapter-content">
+                <div class="storybook__chapter-left">
+                    <h3 class="storybook__chapter-subtitle">Chapter One</h3>
+                    <h2 class="storybook__chapter-title">Ideation</h2>
+                    <p class="storybook__chapter-text">
+                        Every great project begins with a spark of inspiration. Our journey started with a simple question: how might we revolutionize the way people interact with digital storytelling? Through collaborative brainstorming sessions, we explored various concepts and possibilities.
+                    </p>
+                    <p class="storybook__chapter-text">
+                        We conducted extensive research on existing solutions, identifying gaps in the market and opportunities for innovation. The team spent countless hours discussing potential features, user experiences, and technological approaches.
+                    </p>
+                    <div class="storybook__chapter-notes">
+                        "The most exciting moment was when we realized we could combine interactive storytelling with data visualization to create something truly unique." — Design Lead
+                    </div>
+                </div>
+                <div class="storybook__chapter-right">
+                    <img src="/api/placeholder/600/400" alt="Ideation Phase" class="storybook__chapter-image">
+                    <img src="/api/placeholder/150/150" alt="Ideation Doodle" class="storybook__chapter-doodle">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 2: Planning -->
+    <section class="storybook__chapter" id="planning">
+        <div class="storybook__chapter-container">
+            <div class="storybook__chapter-number">02</div>
+            <div class="storybook__chapter-content">
+                <div class="storybook__chapter-left">
+                    <h3 class="storybook__chapter-subtitle">Chapter Two</h3>
+                    <h2 class="storybook__chapter-title">Planning</h2>
+                    <p class="storybook__chapter-text">
+                        With our vision crystallized, we moved into the planning phase. This critical stage involved mapping out the project scope, establishing timelines, and allocating resources effectively. We defined clear milestones and deliverables to keep our progress on track.
+                    </p>
+                    <p class="storybook__chapter-text">
+                        Our project management approach combined agile methodologies with design thinking principles. We created detailed wireframes and prototypes to visualize the user journey and interface before committing to development.
+                    </p>
+                    <div class="storybook__chapter-notes">
+                        "The planning stage is where dreams meet reality. It's about finding the perfect balance between ambition and feasibility." — Project Manager
+                    </div>
+                </div>
+                <div class="storybook__chapter-right">
+                    <img src="/api/placeholder/600/400" alt="Planning Phase" class="storybook__chapter-image">
+                    <img src="/api/placeholder/150/150" alt="Planning Doodle" class="storybook__chapter-doodle">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 3: Development -->
+    <section class="storybook__chapter" id="development">
+        <div class="storybook__chapter-container">
+            <div class="storybook__chapter-number">03</div>
+            <div class="storybook__chapter-content">
+                <div class="storybook__chapter-left">
+                    <h3 class="storybook__chapter-subtitle">Chapter Three</h3>
+                    <h2 class="storybook__chapter-title">Development</h2>
+                    <p class="storybook__chapter-text">
+                        The development phase was where our vision began to take tangible form. Our engineering team worked diligently to build the foundation of our platform, implementing the core functionality and features we had meticulously planned.
+                    </p>
+                    <p class="storybook__chapter-text">
+                        We embraced a modular development approach, allowing for parallel workflows and continuous integration. Regular code reviews and quality assurance testing ensured we maintained high standards throughout the development process.
+                    </p>
+                    <div class="storybook__chapter-notes">
+                        "The moment when you see your code come to life and actually work as intended is pure magic. It makes all the hard work worthwhile." — Lead Developer
+                    </div>
+                </div>
+                <div class="storybook__chapter-right">
+                    <img src="/api/placeholder/600/400" alt="Development Phase" class="storybook__chapter-image">
+                    <img src="/api/placeholder/150/150" alt="Development Doodle" class="storybook__chapter-doodle">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 4: Challenges -->
+    <section class="storybook__chapter" id="challenges">
+        <div class="storybook__chapter-container">
+            <div class="storybook__chapter-number">04</div>
+            <div class="storybook__chapter-content">
+                <div class="storybook__chapter-left">
+                    <h3 class="storybook__chapter-subtitle">Chapter Four</h3>
+                    <h2 class="storybook__chapter-title">Challenges</h2>
+                    <p class="storybook__chapter-text">
+                        No meaningful project is without its obstacles. We encountered several significant challenges that tested our resilience and problem-solving capabilities. Performance optimization became a major focus as we worked to ensure smooth user experiences across different devices.
+                    </p>
+                    <p class="storybook__chapter-text">
+                        We also faced integration issues with third-party services and unexpected technical limitations that required creative solutions. These challenges pushed us to innovate and discover new approaches that ultimately strengthened our final product.
+                    </p>
+                    <div class="storybook__chapter-notes">
+                        "Our biggest challenge became our greatest advantage. The workaround we developed actually improved the overall architecture of the system." — Technical Architect
+                    </div>
+                </div>
+                <div class="storybook__chapter-right">
+                    <img src="/api/placeholder/600/400" alt="Challenges Phase" class="storybook__chapter-image">
+                    <img src="/api/placeholder/150/150" alt="Challenges Doodle" class="storybook__chapter-doodle">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 5: Outcomes -->
+    <section class="storybook__chapter" id="outcomes">
+        <div class="storybook__chapter-container">
+            <div class="storybook__chapter-number">05</div>
+            <div class="storybook__chapter-content">
+                <div class="storybook__chapter-left">
+                    <h3 class="storybook__chapter-subtitle">Chapter Five</h3>
+                    <h2 class="storybook__chapter-title">Outcomes</h2>
+                    <p class="storybook__chapter-text">
+                        After months of dedicated effort, we successfully launched our project to positive reception. The platform has exceeded our initial expectations, with user engagement metrics surpassing industry benchmarks and stakeholder feedback confirming our value proposition.
+                    </p>
+                    <p class="storybook__chapter-text">
+                        Beyond the technical achievements, this project fostered team growth and knowledge sharing. We've established new best practices and workflows that will benefit future initiatives, and built lasting relationships with clients and partners.
+                    </p>
+                    <div class="storybook__chapter-notes">
+                        "Looking back at where we started and seeing what we've accomplished fills me with pride. This is just the beginning of an exciting journey." — CEO
+                    </div>
+                </div>
+                <div class="storybook__chapter-right">
+                    <img src="/api/placeholder/600/400" alt="Outcomes Phase" class="storybook__chapter-image">
+                    <img src="/api/placeholder/150/150" alt="Outcomes Doodle" class="storybook__chapter-doodle">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page transition overlay -->
+    <div class="storybook__transition" id="transition"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu toggle functionality
+            const hamburger = document.getElementById('hamburger');
+            const menu = document.getElementById('menu');
+            const navbar = document.getElementById('navbar');
+            const menuItems = document.querySelectorAll('.storybook__menu-item');
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                menu.classList.toggle('active');
+                navbar.classList.toggle('menu-active');
+            });
+
+            // Close menu when clicking a menu item
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    setTimeout(function() {
+                        hamburger.classList.remove('active');
+                        menu.classList.remove('active');
+                        navbar.classList.remove('menu-active');
+                    }, 300);
+                });
+            });
+
+            // Image hover effect in menu
+            const menuImages = document.querySelectorAll('.storybook__menu-img');
+            
+            menuItems.forEach(item => {
+                const imgType = item.getAttribute('data-img');
+                
+                item.addEventListener('mouseenter', function() {
+                    menuImages.forEach(img => {
+                        if (img.getAttribute('data-img') === imgType) {
+                            img.style.opacity = '0.3';
+                        }
+                    });
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    menuImages.forEach(img => {
+                        img.style.opacity = '0';
+                    });
+                });
+            });
+
+            // Scroll progress indicator
+            const progressBar = document.getElementById('progressBar');
+            
+            window.addEventListener('scroll', function() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                
+                const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
+                progressBar.style.width = scrollPercentage + '%';
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Trigger page transition
+                        const transition = document.getElementById('transition');
+                        transition.classList.add('active');
+                        
+                        setTimeout(() => {
+                            // Scroll to target after brief delay
+                            targetElement.scrollIntoView({
+                                behavior: 'auto'
+                            });
+                            
+                            // Hide transition after scrolling
+                            setTimeout(() => {
+                                transition.classList.remove('active');
+                            }, 600);
+                        }, 600);
+                    }
+                });
+            });
+
+            // Reveal animations on scroll
+            const revealElements = document.querySelectorAll('.storybook__chapter');
+            
+            const revealOnScroll = function() {
+                for (let i = 0; i < revealElements.length; i++) {
+                    const elementTop = revealElements[i].getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        revealElements[i].classList.add('revealed');
+                    }
+                }
+            };
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Check on load
+        });
+    </script>
+</body>
+</html>
