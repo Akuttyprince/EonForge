@@ -3,240 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EON FORGE</title>
     <link rel="icon" href="img/logo.png" type="icon/x-icon">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Syne';
-            font-feature-settings: 'pnum' on, 'lnum' on;
-        }
+        /* Root variables */
+:root {
+    --sepia: #000000;           /* Changed to card-bg */
+    --dark-sepia: #0a0a0a;      /* Changed to second-color */
+    --light-sepia: #ffffff;     /* Kept as is (matches pr-color) */
+    --brown: rgba(7, 6, 6, 0.3);  /* Changed to glow-strong */
+    --black: #000000;           /* Changed to text-color */
+}
 
-        :root {
-            --pr-color: #ffffff;
-            --cubicbz: cubic-bezier(0.77, 0, 0.175, 1);
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            background-color: #0f0f0f;
-            color: white;
-            padding: 40px 20px;
-            margin-top: 80px;
-            font-family: 'Syne';
+body {
+    font-family: 'Syne';
+    background-color: var(--sepia);
+    color: var(--brown);
+    overflow-x: hidden;
+}
 
-        }
-        
-        /* navbar styles */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 25px 70px;
-            z-index: 100;
-            mix-blend-mode: difference;
-            transition: background-color 0.4s var(--cubicbz);
-            
-        }
-        
-        .navbar__container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .navbar__left, .navbar__right {
-            flex: 1;
-        }
-        
-        .navbar__center {
-            flex: 2;
-            text-align: center;
-        }
-        
-        .navbar__logo {
-            font-size: 24px;
-            color: var(--pr-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .navbar__right {
-            display: flex;
-            justify-content: flex-end;
-        }
-        
-        .navbar__hamburger {
-            position: relative;
-            width: 35px;
-            height: 30px;
-            cursor: pointer;
-            z-index: 101;
-        }
-        
-        .navbar__hamburger span {
-            position: absolute;
-            display: block;
-            width: 100%;
-            height: 2px;
-            background-color: var(--pr-color);
-            transition: all 0.3s var(--cubicbz);
-        }
-        
-        .navbar__hamburger span:first-child {
-            top: 0;
-        }
-        
-        .navbar__hamburger span:nth-child(2) {
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .navbar__hamburger span:last-child {
-            bottom: 0;
-        }
-        
-        /* Hamburger animation for open state */
-        .navbar__hamburger.active span:first-child {
-            top: 50%;
-            transform: translateY(-50%) rotate(45deg);
-        }
-        
-        .navbar__hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .navbar__hamburger.active span:last-child {
-            bottom: 50%;
-            transform: translateY(50%) rotate(-45deg);
-        }
-        
-        /* Add black background when menu is active */
-        .navbar.menu-active {
-            background-color: #000;
-            mix-blend-mode: normal; /* Switch off mix-blend-mode when menu is open */
-        }
-        
-        /* Menu styles */
-        .navbar__menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.95); /* Slightly transparent black */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: translateX(100%);
-            transition: transform 0.6s var(--cubicbz);
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            overflow: hidden;
-        }
-        
-        .navbar__menu.active {
-            transform: translateX(0);
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .navbar__menu-list {
-            list-style: none;
-            text-align: center;
-            z-index: 2;
-            position: relative;
-        }
-        
-        .navbar__menu-item {
-            margin: 25px 0;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            transition-delay: 0.1s;
-            cursor: pointer;
-        }
-        
-        .navbar__menu.active .navbar__menu-item {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Stagger the animation delay for each menu item */
-        .navbar__menu.active .navbar__menu-item:nth-child(1) { transition-delay: 0.1s; }
-        .navbar__menu.active .navbar__menu-item:nth-child(2) { transition-delay: 0.2s; }
-        .navbar__menu.active .navbar__menu-item:nth-child(3) { transition-delay: 0.3s; }
-        .navbar__menu.active .navbar__menu-item:nth-child(4) { transition-delay: 0.4s; }
-        .navbar__menu.active .navbar__menu-item:nth-child(5) { transition-delay: 0.5s; }
-        
-        .navbar__menu-item a {
-            position: relative;
-            font-size: 55px;
-            color: var(--pr-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-        
-        .navbar__menu-item a:hover {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--pr-color);
-        }
-        
-        .navbar__menu-item a::after {
-            content: "";
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--pr-color);
-            transition: width 0.3s var(--cubicbz);
-        }
-        
-        .navbar__menu-item a:hover::after {
-            width: 100%;
-        }
-        
-        /* Image hover effect */
-        .navbar__menu-img-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .navbar__menu-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: opacity 0.5s var(--cubicbz);
-        }
-        
-        .navbar__menu-img::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for better text readability */
-        }
-        
+/* navbar styles with updated color palette and increased font weight */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 70px;
+    z-index: 100;
+    font-weight: 700; /* Increased from 500 to 700 for bolder text */
+    mix-blend-mode: difference;
+    transition: background-color 0.4s cubic-bezier(.9, 0, .1, 1);
+}
+
+.navbar__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__left, .navbar__right {
+    flex: 1;
+}
+
+.navbar__center {
+    flex: 2;
+    text-align: center;
+}
+
+.navbar__logo {
+    font-size: 24px;
+    font-weight: 700; /* Added explicit font-weight to logo */
+    color: #ffffff; /* Using --pr-color value */
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.navbar__right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar__hamburger {
+    position: relative;
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.navbar__hamburger span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff; /* Using --pr-color value */
+    transition: all 0.3s cubic-bezier(.9, 0, .1, 1);
+}
+
+.navbar__hamburger span:first-child {
+    top: 0;
+}
+
+.navbar__hamburger span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.navbar__hamburger span:last-child {
+    bottom: 0;
+}
+
+/* Hamburger animation for open state */
+.navbar__hamburger.active span:first-child {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.navbar__hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar__hamburger.active span:last-child {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+
+/* Add black background when menu is active */
+.navbar.menu-active {
+    background-color: #000000;
+    mix-blend-mode: normal; /* Switch off mix-blend-mode when menu is open */
+}
+
+/* Menu styles */
+.navbar__menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95); /* Slightly transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: transform 0.6s cubic-bezier(.9, 0, .1, 1);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.navbar__menu.active {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.navbar__menu-list {
+    list-style: none;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+}
+
+.navbar__menu-item {
+    margin: 25px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition-delay: 0.1s;
+    cursor: pointer;
+}
+
+.navbar__menu.active .navbar__menu-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger the animation delay for each menu item */
+.navbar__menu.active .navbar__menu-item:nth-child(1) { transition-delay: 0.1s; }
+.navbar__menu.active .navbar__menu-item:nth-child(2) { transition-delay: 0.2s; }
+.navbar__menu.active .navbar__menu-item:nth-child(3) { transition-delay: 0.3s; }
+.navbar__menu.active .navbar__menu-item:nth-child(4) { transition-delay: 0.4s; }
+.navbar__menu.active .navbar__menu-item:nth-child(5) { transition-delay: 0.5s; }
+
+.navbar__menu-item a {
+    position: relative;
+    font-size: 55px;
+    font-weight: 800; /* Increased from default to 800 for much bolder menu text */
+    color: #ffffff; /* Using --pr-color value */
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.navbar__menu-item a:hover {
+    color: transparent;
+    -webkit-text-stroke: 1.5px #ffffff; /* Increased stroke width from 1px to 1.5px */
+}
+
+.navbar__menu-item a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffffff; /* Using --pr-color value */
+    transition: width 0.3s cubic-bezier(.9, 0, .1, 1);
+}
+
+.navbar__menu-item a:hover::after {
+    width: 100%;
+}
+
+/* Image hover effect */
+.navbar__menu-img-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.navbar__menu-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(.9, 0, .1, 1);
+}
+
+.navbar__menu-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay for better text readability */
+}
         /* For body, to prevent scrolling when menu is open */
         body.no-scroll {
             overflow: hidden;
@@ -248,6 +250,8 @@
         }
 
         .header {
+            margin-top: 150px;
+            color: #f1f1f1;
             margin-bottom: 60px;
             position: relative;
         }
