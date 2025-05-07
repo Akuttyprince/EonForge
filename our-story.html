@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         /* Root variables */
         :root {
@@ -16,7 +17,7 @@
             --light-sepia: #ffffff;
             --brown: rgba(7, 6, 6, 0.3);
             --black: #000000;
-            --accent-color: #e6c9a8;
+            --accent-color: #eecccc;
             --text-color: #ffffff;
         }
 
@@ -615,6 +616,106 @@
         .storybook__transition.active {
             transform: translateY(0);
         }
+
+        
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+    font-weight: 800;
+  }
+  
+  .footer__div {
+	font-size: 70px;
+	letter-spacing: 15px;
+	color: var(--pr-color);
+	text-transform: uppercase;
+	text-align: center;
+	width: 100%;
+	max-width: 1200px;
+	transition: all 0.3s ease;
+  }
+  
+  .footer__div span {
+	display: inline-block;
+  }
+  
+  /* Large screens (1200px and below) */
+  @media screen and (max-width: 1200px) {
+	.footer__div {
+	  font-size: 60px;
+	  letter-spacing: 12px;
+	}
+  }
+  
+  /* Medium screens (992px and below) */
+  @media screen and (max-width: 992px) {
+	.footer__div {
+	  font-size: 50px;
+	  letter-spacing: 10px;
+	}
+  }
+  
+  /* Tablets (768px and below) */
+  @media screen and (max-width: 768px) {
+	.footer__div {
+	  font-size: 40px;
+	  letter-spacing: 8px;
+	}
+  }
+  
+  /* Large mobile devices (576px and below) */
+  @media screen and (max-width: 576px) {
+	.footer__div {
+	  font-size: 30px;
+	  letter-spacing: 6px;
+	}
+	
+	.footer {
+	  height: auto;
+	  min-height: 50vh;
+	}
+  }
+  
+  /* Small mobile devices (400px and below) */
+  @media screen and (max-width: 400px) {
+	.footer__div {
+	  font-size: 24px;
+	  letter-spacing: 4px;
+	}
+  }
+  
+  /* Very small mobile devices (320px and below) */
+  @media screen and (max-width: 320px) {
+	.footer__div {
+	  font-size: 20px;
+	  letter-spacing: 3px;
+	}
+  }
+  
+  /* Height-based media queries for better vertical responsiveness */
+  @media screen and (max-height: 700px) {
+	.footer {
+	  height: auto;
+	  min-height: 400px;
+	}
+  }
+  
+  @media screen and (max-height: 500px) {
+	.footer {
+	  height: auto;
+	  min-height: 300px;
+	}
+	
+	.footer__div {
+	  font-size: smaller;
+	}
+  }
+
     </style>
 </head>
 <body>
@@ -685,16 +786,16 @@
             <div class="storybook__chapter-content">
                 <div class="storybook__chapter-left">
                     <h3 class="storybook__chapter-subtitle">Chapter One</h3>
-                    <h2 class="storybook__chapter-title">Ideation</h2>
+                    <h2 class="storybook__chapter-title">THE SPARK</h2>
                     <p class="storybook__chapter-text">
-                        Every great project begins with a spark of inspiration. Our journey started with a simple question: how might we revolutionize the way people interact with digital storytelling? Through collaborative brainstorming sessions, we explored various concepts and possibilities.
+                        
+In October 2024, 13 passionate learners came together, inspired by the legacy of their seniors. With nothing but curiosity and a shared vision, they began their journey with Godot.
+
                     </p>
                     <p class="storybook__chapter-text">
-                        We conducted extensive research on existing solutions, identifying gaps in the market and opportunities for innovation. The team spent countless hours discussing potential features, user experiences, and technological approaches.
-                    </p>
+                        The group was small, but their dreams were limitless.                    </p>
                     <div class="storybook__chapter-notes">
-                        "The most exciting moment was when we realized we could combine interactive storytelling with data visualization to create something truly unique." — Design Lead
-                    </div>
+                       " All great things start with a dream—and 13 dreamers dared to begin."             </div>
                 </div>
                 <div class="storybook__chapter-right">
                     <img src="/api/placeholder/600/400" alt="Ideation Phase" class="storybook__chapter-image">
@@ -711,16 +812,13 @@
             <div class="storybook__chapter-content">
                 <div class="storybook__chapter-left">
                     <h3 class="storybook__chapter-subtitle">Chapter Two</h3>
-                    <h2 class="storybook__chapter-title">Planning</h2>
+                    <h2 class="storybook__chapter-title">The Call to Rise</h2>
                     <p class="storybook__chapter-text">
-                        With our vision crystallized, we moved into the planning phase. This critical stage involved mapping out the project scope, establishing timelines, and allocating resources effectively. We defined clear milestones and deliverables to keep our progress on track.
-                    </p>
+                        A new challenge came in November—a request from the HOD to create a Websites. While the project seemed daunting, EON FORGE welcomed it with hope and heart.                     </p>
                     <p class="storybook__chapter-text">
-                        Our project management approach combined agile methodologies with design thinking principles. We created detailed wireframes and prototypes to visualize the user journey and interface before committing to development.
-                    </p>
+                        The challenge was the starting point for something much greater.                    </p>
                     <div class="storybook__chapter-notes">
-                        "The planning stage is where dreams meet reality. It's about finding the perfect balance between ambition and feasibility." — Project Manager
-                    </div>
+                        "Challenges are the universe’s way of saying—'You’re ready for more."                    </div>
                 </div>
                 <div class="storybook__chapter-right">
                     <img src="/api/placeholder/600/400" alt="Planning Phase" class="storybook__chapter-image">
@@ -737,15 +835,14 @@
             <div class="storybook__chapter-content">
                 <div class="storybook__chapter-left">
                     <h3 class="storybook__chapter-subtitle">Chapter Three</h3>
-                    <h2 class="storybook__chapter-title">Development</h2>
+                    <h2 class="storybook__chapter-title">The Forge of Fire</h2>
                     <p class="storybook__chapter-text">
-                        The development phase was where our vision began to take tangible form. Our engineering team worked diligently to build the foundation of our platform, implementing the core functionality and features we had meticulously planned.
-                    </p>
+
+                        During December, the team split into dedicated units, working on the project with intensity. Mistakes accumulated, tension set in, but so did laughter, cohesion, and sleepless nights spent debugging and believing.                     </p>
                     <p class="storybook__chapter-text">
-                        We embraced a modular development approach, allowing for parallel workflows and continuous integration. Regular code reviews and quality assurance testing ensured we maintained high standards throughout the development process.
-                    </p>
+                        Despite January exams approaching, the core team continued, held together by the determination of their founder and designers.                    </p>
                     <div class="storybook__chapter-notes">
-                        "The moment when you see your code come to life and actually work as intended is pure magic. It makes all the hard work worthwhile." — Lead Developer
+                        "Growth is born not in comfort, but in chaos shared with friends."
                     </div>
                 </div>
                 <div class="storybook__chapter-right">
@@ -763,15 +860,16 @@
             <div class="storybook__chapter-content">
                 <div class="storybook__chapter-left">
                     <h3 class="storybook__chapter-subtitle">Chapter Four</h3>
-                    <h2 class="storybook__chapter-title">Challenges</h2>
+                    <h2 class="storybook__chapter-title">Breakthrough and Bloom</h2>
                     <p class="storybook__chapter-text">
-                        No meaningful project is without its obstacles. We encountered several significant challenges that tested our resilience and problem-solving capabilities. Performance optimization became a major focus as we worked to ensure smooth user experiences across different devices.
+                        February delivered success— websites launched. In March, old friends came back, new minds arrived, and momentum grew.
                     </p>
                     <p class="storybook__chapter-text">
-                        We also faced integration issues with third-party services and unexpected technical limitations that required creative solutions. These challenges pushed us to innovate and discover new approaches that ultimately strengthened our final product.
+                        April saw the team diving into new technologies, each member blossoming into a master of their field. Then came the college hackathon—and EON FORGE flew high, winning 1st, 2nd, and special awards.
                     </p>
                     <div class="storybook__chapter-notes">
-                        "Our biggest challenge became our greatest advantage. The workaround we developed actually improved the overall architecture of the system." — Technical Architect
+
+                        "The seeds of effort bloom into triumph for those who endure."
                     </div>
                 </div>
                 <div class="storybook__chapter-right">
@@ -789,15 +887,15 @@
             <div class="storybook__chapter-content">
                 <div class="storybook__chapter-left">
                     <h3 class="storybook__chapter-subtitle">Chapter Five</h3>
-                    <h2 class="storybook__chapter-title">Outcomes</h2>
+                    <h2 class="storybook__chapter-title">The Legacy We Build </h2>
                     <p class="storybook__chapter-text">
-                        After months of dedicated effort, we successfully launched our project to positive reception. The platform has exceeded our initial expectations, with user engagement metrics surpassing industry benchmarks and stakeholder feedback confirming our value proposition.
+                        The mission is straightforward: Raise the next wave of creators, polish the website and  app, and maintain the fire of learning and laughter. 
                     </p>
                     <p class="storybook__chapter-text">
-                        Beyond the technical achievements, this project fostered team growth and knowledge sharing. We've established new best practices and workflows that will benefit future initiatives, and built lasting relationships with clients and partners.
+                        All challenges are approached unitedly. All victories are collaborative. As a unit, they are not just coding, but building a nurturing, unified, and joyful purposeful future.
                     </p>
                     <div class="storybook__chapter-notes">
-                        "Looking back at where we started and seeing what we've accomplished fills me with pride. This is just the beginning of an exciting journey." — CEO
+                        "We do not just build projects. We build people who lead with compassion.’"
                     </div>
                 </div>
                 <div class="storybook__chapter-right">
@@ -807,7 +905,21 @@
             </div>
         </div>
     </section>
-
+    <footer class="footer">
+        <div class="footer__div">
+            <span data-speed="-300"></span>
+            <span data-speed="100">E</span>
+            <span data-speed="300">O</span>
+            <span data-speed="-300">N</span>
+            <span data-speed="350"></span>
+            <span data-speed="200">F</span>
+            <span data-speed="-310">O</span>
+            <span data-speed="200">R</span>
+            <span data-speed="-340">G</span>
+            <span data-speed="-100">E</span>
+            <span data-speed="300"></span>
+        </div>
+    </footer>
     <!-- Page transition overlay -->
     <div class="storybook__transition" id="transition"></div>
 
@@ -918,5 +1030,6 @@
             revealOnScroll(); // Check on load
         });
     </script>
+    
 </body>
 </html>
